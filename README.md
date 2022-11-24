@@ -14,18 +14,16 @@ GPLv3](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org
 
 <a href="https://www.buymeacoffee.com/dadosdelaplace" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-<img width="800" alt="image" src="https://user-images.githubusercontent.com/26646492/203784789-e5549eb0-de19-42a6-bdb3-7dae9e90a96e.png">
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/26646492/203796508-82a01c52-f948-4e7b-b324-79a55038cc4b.png">
 
             
-* **Diapositivas** (https://dadosdelaplace.github.io/teaching-bioestad/slides)
+* **Diapositivas de R** (https://dadosdelaplace.github.io/teaching-exploratory/slides/)
     
-* **Evaluación** (https://github.com/dadosdelaplace/teaching-bioestad/tree/main/eval)
+* **Evaluación** (https://github.com/dadosdelaplace/teaching-exploratory/tree/main/eval)
 
-* **Código diapositivas** (https://github.com/dadosdelaplace/teaching-bioestad/tree/main/slides)
+* **Código diapositivas** (https://github.com/dadosdelaplace/teaching-exploratory/tree/main/slides)
                         
-* **Scripts del curso**: (https://github.com/dadosdelaplace/teaching-bioestad/tree/main/scripts)
-
-* **Bibliografía**: (https://github.com/dadosdelaplace/teaching-bioestad/tree/main/biblio)
+* **Scripts del curso**: (https://github.com/dadosdelaplace/teaching-exploratory/tree/main/scripts)
 
 * **Manual introductorio de R**: (https://dadosdelaplace.github.io/courses-intro-R/)
 
