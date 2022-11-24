@@ -105,16 +105,11 @@ $$\\[2in]$$
 
 .pull-left[
 
-- **.bg-purple_light[Diapositivas]** del curso:
-<https://drive.google.com/drive/folders/1qsABfIyYxoSTERwVCSe6gOJxZcSvjEV1?usp=sharing>
-
-- **.bg-red_light[Ejercicios y entregas]** de la asignatura
-<https://drive.google.com/drive/folders/1R3edVN3GPNaY6WLXd1VBgEl2ses_wBty?usp=sharing>
 
 - **.bg-yellow[Diapositivas de R]**
-<https://dadosdelaplace.github.io/teaching/descriptiva/slides>
+<https://dadosdelaplace.github.io/teaching-exploratory/slides>
 
-- **.bg-orange[Entregas de R]**: <https://github.com/dadosdelaplace/teaching/tree/main/descriptiva/eval>
+- **.bg-orange[Entregas de R]**: <https://github.com/dadosdelaplace/teaching-exploratory/tree/main/eval>
 
 
 &nbsp;
