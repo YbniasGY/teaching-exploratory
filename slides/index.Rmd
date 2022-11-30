@@ -11341,4 +11341,1333 @@ ggsave("./gapminder.png") #<<
 
 ---
 
+# Diagrama de .orange[BARRAS]
+
+
+El gráfico anterior (diagrama de puntos o scatter plot) está principalmente pasado para **.bg-purple_light[representar variables numéricas spanontinuas]**. ¿Y si tengo **.bg-orange[variables discretas o cualitativas]**?
+
+Vamos a usar el ya conocido conjunto `starwars` para visualizar en un **.bg-purple_light[diagrama de barras]**: vamos a representar la **.bg-purple_light[frecuencia]**  de una **.bg-orange[variable cualitativa]** como es `sex`.
+
+```{r}
+starwars %>% 
+  count(sex)
+```
+
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Para visualizar un **diagrama de barras** todo lo que hemos aprendido nos sirve: solo tenemos que **.bg-purple_light[cambiar la geometría]** con `geom_bar()` en lugar de `geom_point()`, con `x = sex` (ggplot hará solo el recuento por nosotros)
+
+```{r eval = FALSE}
+starwars <- starwars %>% drop_na(sex)
+ggplot(starwars,
+       aes(x = sex)) +
+  geom_bar() + #<<
+  theme_minimal()
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+starwars <- starwars %>% drop_na(sex)
+ggplot(starwars, aes(x = sex)) +
+  geom_bar() + #<<
+  theme_minimal()
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Podemos aplicar lo aprendido sobre **.bg-purple_light[colores para codificar]** la información, en este caso vamos a usar las paletas ya cargadas en `scale_color_brewer()` (info en <https://colorbrewer2.org>). Fíjate que ahora será importante distinguir entre `color` y `fill`
+
+```{r eval = FALSE}
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(color = sex), #<<
+           alpha = 0.5) + 
+  scale_color_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(color = sex)) + #<<
+  scale_color_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+]
+
+---
+
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Fíjate que ahora será importante distinguir entre `color` y `fill`
+
+```{r eval = FALSE}
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(fill = sex), #<<
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(fill = sex), #<<
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Podemos personalizar el gráfico haciendo uso de las opciones ya vistas.
+
+```{r eval = FALSE}
+theme_set(theme_minimal())
+theme_update(
+  plot.title =
+    element_text(size = 25, face = "bold"),
+  plot.subtitle = element_text(size = 13),
+  plot.caption = element_text(size = 9)
+)
+
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle = "Frec. de variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+theme_set(theme_minimal())
+theme_update(
+  plot.title =
+    element_text(size = 25, face = "bold"),
+  plot.subtitle = element_text(size = 13),
+  plot.caption = element_text(size = 9)
+)
+
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle = "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Haciendo uso de los que sabemos **.bg-purple_light[sobre factores]** podemos indicarle que nos ordene las columnas de mayor a menor frecuencia, usando simplemente `fct_infreq()`
+
+```{r eval = FALSE}
+ggplot(starwars,
+       aes(x = fct_infreq(sex))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(starwars,
+       aes(x = fct_infreq(sex))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle = "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Para cambiar el rol de los ejes, generando un diagrama de **.bg-purple_light[barras horizontales]**, podemos dejar el gráfico igual y luego simplemente hacer `coord_flip()`
+
+```{r eval = FALSE}
+ggplot(starwars,
+       aes(x = fct_infreq(sex))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  coord_flip() + #<<
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "90%"}
+ggplot(starwars,
+       aes(x = fct_infreq(sex))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  coord_flip() + #<<
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Para **.bg-purple_light[invertir el orden de los factores]** basta usar `fct_rev()`
+
+```{r eval = FALSE}
+ggplot(starwars,
+       aes(x = fct_rev(fct_infreq(sex)))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  coord_flip() + #<<
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "90%"}
+ggplot(starwars,
+       aes(x = fct_rev(fct_infreq(sex)))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  coord_flip() + #<<
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+---
+
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+La capa `geom_bar()` está solo pensada para **.bg-purple_light[conteos de variables discretas o cualitativas]**. ¿Y si queremos visualizar en gapminder el producto interior bruto por año? Usaremos `geom_col()` (ahora si necesitamos dos argumentos x,y)
+
+
+```{r eval = FALSE}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col() + #<<
+  theme_minimal()
+```
+
+Fíjate que por defecto lo que hace es **.bg-purple_light[sumar la variable continua]** en cada año
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col() + 
+  theme_minimal()
+```
+
+]
+
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Si añadimos `fill = continent` nos creará lo que se conoce como **.bg-purple_light[diagrama de barras apilado]** (en cada barra apilará los continentes uno encima de otros). Usaremos una paleta `scale_fill_colorblind()` pensada para personas daltónicas.
+
+
+```{r eval = FALSE}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent), #<<
+           alpha = 0.7) + 
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent), #<<
+           alpha = 0.7) + 
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Si añadimos `position = "dodge"` nos creará lo que se conoce como **.bg-purple_light[diagrama de barras desapilado]**: nos pinta las barras de cada país y año (coloreados por continente) unas al lado de otras. 
+
+
+```{r eval = FALSE}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "dodge") + #<<
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "dodge") + #<<
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+En este caso no parece una muy buena idea ya que tenemos muchos países. Si usamos `position = "dodge2"` nos creará el gráfico pero usando el máximo de cada grupo (continente).
+
+```{r eval = FALSE}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "dodge2") + #<<
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "dodge2") + #<<
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Podemos hacer antes un resumen para visualizar la media por continente y año
+
+```{r eval = FALSE}
+gapminder_continent <-
+  gapminder %>% 
+  group_by(continent, year) %>%
+  summarise(mean_gdp = mean(gdpPercap)) %>% 
+  ungroup()
+ggplot(gapminder_continent,
+       aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "dodge2") + #<<
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+gapminder_continent <-
+  gapminder %>% 
+  group_by(continent, year) %>%
+  summarise(mean_gdp = mean(gdpPercap)) %>% 
+  ungroup()
+ggplot(gapminder_continent,
+       aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "dodge2") + #<<
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Con `position = fill` lo que hacemos es que todas las barras ocupen lo mismo para **.bg-purple_light[facilitar la comparación]** (añadimos de paso la leyenda debajo)
+
+```{r eval = FALSE}
+ggplot(gapminder_continent,
+       aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "fill") + #<<
+  scale_fill_colorblind() +
+  theme_minimal() +
+  theme(legend.position = "bottom") +#<<
+  labs(x = "Año", y = "PIB medio",
+       fill = "continente",
+       title = "Diagrama de barras")
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(gapminder_continent,
+       aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+           position = "fill") + #<<
+  scale_fill_colorblind() +
+  theme_minimal() +
+  theme(legend.position = "bottom") +#<<
+  labs(x = "Año", y = "PIB medio",
+       fill = "continente",
+       title = "Diagrama de barras")
+```
+
+]
+
+
+---
+
+name: html-textos
+
+# .orange[HTML] en textos
+
+Con el paquete `{ggtext}` podemos indicarle dentro del tema `theme()` si alguno de los elementos lo vamos a querer **.bg-purple_light[escribir en HTML dando colores a textos]** haciendo uso de `element_markdown()`
+
+```{r eval = FALSE}
+library(ggtext)
+ggplot(gapminder_continent, aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent), alpha = 0.7, position = "fill") +
+  scale_fill_colorblind() +
+  theme_minimal() +
+  theme(legend.position = "none",#<<
+        plot.subtitle = element_markdown(face = "bold")) +#<<
+  labs(x = "Año", y = "PIB medio",
+       title = "Diagrama de barras",
+       subtitle = "Media del PIB en <span style = 'color:#606060;'>África</span>, <span style = 'color:#f3bb53;'>América</span>, <span style = 'color:#7bcbf3;'>Asia</span>, <span style = 'color:#48bf9f;'>Europa</span> y <span style = 'color:#f3eb73;'>Oceanía</span>")
+```
+
+---
+
+# .orange[HTML] en textos
+
+```{r echo = FALSE, out.width = "50%"}
+library(ggtext)
+gg <- ggplot(gapminder_continent, aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent), alpha = 0.7, position = "fill") +
+  scale_fill_colorblind() +
+  theme_minimal() +
+  theme(legend.position = "none",#<<
+        plot.subtitle = element_markdown(face = "bold")) +#<<
+  labs(x = "Año", y = "PIB medio",
+       title = "Diagrama de barras",
+       subtitle = "Media del PIB en <span style = 'color:#606060;'>África</span>, <span style = 'color:#f3bb53;'>América</span>, <span style = 'color:#7bcbf3;'>Asia</span>, <span style = 'color:#48bf9f;'>Europa</span> y <span style = 'color:#f3eb73;'>Oceanía</span>")
+gg
+```
+
+---
+  
+# .orange[INTERACTIVOS]: plotly
+
+También podemos crear **.bg-purple_light[gráficos interactivos]**: vamos a añadirle un  nuevo **.bg-purple_light[atributo de texto]** dentro de `geom_col()`, que construimos con `str_glue()` (<b>...</b> para meter negrita en HTML). Y guardamos el gráfico
+
+```{r}
+gg <-
+  ggplot(gapminder_continent, aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent,
+  text = #<<
+  str_glue(
+  "<b>PIB medio</b>: {round(mean_gdp, 2)}$
+  <b>Continente</b>: {continent}
+  <b>Año</b>: {year}")),
+  alpha = 0.7, position = "fill") +
+  scale_fill_colorblind() +
+  theme_minimal() +
+  theme(legend.position = "bottom") + 
+  labs(x = "Año", y = "PIB medio",
+       title = "Diagrama de barras")
+```
+
+---
+
+# .orange[INTERACTIVOS]: plotly
+
+
+La librería `{plotly}` es una librería poco conocida pero muy completa para generar **.bg-purple_light[gráficos interactivos]**. Podemos o usar la gramática propia de dicho paquete o, aprovechando que tenemos ya el gráfico generado en ggplot, **.bg-purple_light[convertirlo a interactivo]** con `ggplotly()` (indicándole en `tooltip = ...` que atributos queremos que se visualicen al pasar el ratón)
+
+```{r eval = FALSE}
+library(plotly)
+ggplotly(gg, tooltip = c("text"))
+```
+
+
+---
+
+# .orange[INTERACTIVOS]: plotly
+
+```{r echo = FALSE, out.width = "70%"}
+library(plotly)
+ggplotly(gg, tooltip = c("text"))
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Vamos a analizar un conjunto de datos interesante, que contiene las respuestas a las pregunta **.bg-purple_light[«¿Qué probabilidad (%) asignarías al término ...]**
+
+* **.bg-purple_light[«almost no chance»]**
+* **.bg-purple_light[«probable»]**
+* **.bg-purple_light[«almost certainly»]**
+
+...con el objetivo de **.bg-purple_light[comprender cómo la gente percibe el vocabulario]** de la probabilidad.
+
+```{r}
+datos <-
+  read_csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv")
+datos
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+Vamos a analizar un conjunto de datos interesante, que contiene las respuestas a las pregunta **.bg-purple_light[«¿Qué probabilidad (%) asignarías al término ...]**
+
+* **.bg-purple_light[«almost no chance»]**
+* **.bg-purple_light[«probable»]**
+* **.bg-purple_light[«almost certainly»]**
+
+...con el objetivo de **.bg-purple_light[comprender cómo la gente percibe el vocabulario]** de la probabilidad.
+
+
+```{r}
+glimpse(datos)
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+.pull-left[
+
+Replica el siguiente gráfico (prepara los datos como consideres):
+
+* Fuente: Roboto
+* Tamaño de título: 27
+* Alpha: 0.75
+* Paleta: `scale_fill_brewer(palette = "RdBu")`
+
+]
+
+.pull-right[
+
+
+```{r echo = FALSE, out.width = "90%"}
+library(showtext)
+font_add_google(family = "Roboto", name = "Roboto")
+showtext_auto()
+theme_set(theme_minimal(base_family = "Roboto"))
+theme_update(
+  plot.title = element_text(color = "black", face = "bold", size = 27))
+
+datos_final <-
+  datos %>%
+  pivot_longer(cols = everything(),
+               names_to = "termino", values_to = "prob") %>% 
+  mutate(termino = fct_reorder(termino, prob, .fun = mean)) %>% 
+  filter(termino %in%
+           c("Almost No Chance", "Highly Unlikely", "Improbable",
+             "Probably Not", "About Even",
+             "We Believe", "Probably", "Highly Likely",
+             "Almost Certainly"))
+
+datos_resumen <-
+  datos_final %>%
+  group_by(termino) %>%
+  summarise(mean_prob = mean(prob)) %>%
+  ungroup()
+
+ggplot(datos_resumen,
+       aes(x = termino, y = mean_prob, fill = termino)) +
+  geom_col(alpha = 0.7) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad media (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Lo primero que deberemos hacer es **.bg-purple_light[preparar nuestros datos]** para la posterior visualización: en `{ggplot2}` suele ser en formato tidy
+
+
+```{r}
+datos_tidy <-
+  datos %>%
+  pivot_longer(cols = everything(),
+               names_to = "termino", values_to = "prob")
+datos_tidy
+```
+
+---
+
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Para entender mejor los datos vamos a **.bg-purple_light[realizar un resumen de los datos]** calculando la **.bg-purple_light[media de probabilidad asignada]**
+
+```{r}
+datos_tidy %>% 
+  group_by(termino) %>% 
+  summarise(mean_prob = mean(prob)) %>% 
+  ungroup() %>% 
+  arrange(mean_prob)
+```
+
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Por último, para simplificar los gráficos, vamos a **.bg-purple_light[filtrar solo algunos términos]** (tras convertirlos a factor en función de su media de probabilidad con `fct_reorder()`)
+
+```{r}
+datos_final <-
+  datos_tidy %>% 
+  mutate(termino = fct_reorder(termino, prob, .fun = mean)) %>% 
+  filter(termino %in%
+           c("Almost No Chance", "Highly Unlikely", "Improbable",
+             "Probably Not", "About Even",
+             "We Believe", "Probably", "Highly Likely",
+             "Almost Certainly"))
+datos_final %>% count(termino)
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+.pull-left[
+
+```{r eval = FALSE}
+datos_resumen <-
+  datos_final %>%
+  group_by(termino) %>%
+  summarise(media = mean(prob))
+
+ggplot(datos_resumen,
+       aes(x = termino, y = media, fill = termino)) +
+  geom_col(alpha = 0.7) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad media (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+
+.pull-right[
+
+```{r echo = FALSE}
+datos_resumen <-
+  datos_final %>%
+  group_by(termino) %>%
+  summarise(media = mean(prob))
+
+ggplot(datos_resumen,
+       aes(x = termino, y = media, fill = termino)) +
+  geom_col(alpha = 0.7) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad media (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+  
+---
+
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Lo anterior es un diagrama de barras y hemos tenido que **.bg-purple_light[perder información]** por el camino (hemos tenido que resumir nuestros datos) dado que una diagrama de barras no nos permite visualizar una **.bg-purple_light[variable continua]**.
+
+.pull-left[
+
+Para ello haremos uso de un **.bg-purple_light[histograma]** con `geom_histogram()`
+
+```{r eval = FALSE}
+datos <-
+  tibble("x" = rnorm(n = 10000,
+                     mean = 3, sd = 2))
+ggplot(data = datos,
+       aes(x = x)) +
+  geom_histogram()
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "80%"}
+datos <- tibble("x" = rnorm(n = 10000, mean = 3, sd = 2))
+ggplot(data = datos, aes(x = x)) +
+  geom_histogram() #<<
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+El argumento `bins = ...` nos servirá para personalizar el nímero de barras que queremos. Fíjate que el gráfico es una **.bg-purple_light[aproximación discreta]** de un gráfico de densidad.
+
+```{r eval = FALSE}
+ggplot(data = datos,
+       aes(x = x)) +
+  geom_histogram(bins = 7) #<<
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(data = datos, aes(x = x)) +
+  geom_histogram(bins = 7)
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+El argumento `bins = ...` nos servirá para personalizar el nímero de barras que queremos. Fíjate que el gráfico es una **.bg-purple_light[aproximación discreta]** de un gráfico de densidad.
+
+```{r eval = FALSE}
+ggplot(data = datos,
+       aes(x = x)) +
+  geom_histogram(bins = 50) #<<
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "95%"}
+ggplot(data = datos, aes(x = x)) +
+  geom_histogram(bins = 50)
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+Replica el siguiente gráfico:
+
+* Fuente: Roboto
+* Tamaño de título: 27
+* Alpha: 0.85
+* Paleta: `scale_fill_brewer(palette = "RdBu")`
+* Bins: `bins = 18`
+
+]
+
+.pull-right[
+
+
+```{r echo = FALSE}
+library(showtext)
+font_add_google(family = "Roboto", name = "Roboto")
+showtext_auto()
+theme_set(theme_minimal(base_family = "Roboto"))
+theme_update(
+  plot.title = element_text(color = "black", face = "bold", size = 27),
+  legend.position = "bottom")
+
+ggplot(datos_final,
+       aes(x = prob, fill = termino)) +
+  geom_histogram(alpha = 0.85, bins = 18) +
+  scale_fill_brewer(palette = "RdBu") +
+  facet_wrap(~termino, scale = "free_y", nrow = 3) +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+
+```{r eval = FALSE}
+library(showtext)
+font_add_google(family = "Roboto",
+                name = "Roboto")
+showtext_auto()
+theme_set(theme_minimal(base_family = "Roboto"))
+theme_update(
+  plot.title = element_text(color = "black", face = "bold", size = 27),
+  legend.position = "bottom")
+
+ggplot(datos_final,
+       aes(x = prob, fill = termino)) +
+  geom_histogram(alpha = 0.85, bins = 18) +
+  scale_fill_brewer(palette = "RdBu") +
+  facet_wrap(~termino, scale = "free_y",
+             nrow = 3) +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+
+.pull-right[
+
+
+```{r echo = FALSE}
+library(showtext)
+font_add_google(family = "Roboto", name = "Roboto")
+showtext_auto()
+theme_set(theme_minimal(base_family = "Roboto"))
+theme_update(
+  plot.title = element_text(color = "black", face = "bold", size = 27),
+  legend.position = "bottom")
+
+ggplot(datos_final,
+       aes(x = prob, fill = termino)) +
+  geom_histogram(alpha = 0.85, bins = 18) +
+  scale_fill_brewer(palette = "RdBu") +
+  facet_wrap(~termino, scale = "free_y", nrow = 3) +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+---
+
+name: densidad
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+
+.pull-left[
+
+Los histogramas en realidad son una **.bg-purple_light[aproximación discreta de los gráficos de densidad]** (asumiendo que los intervalos se pudieran ir haciendo tan pequeños como queramos, generado una curva continua). Las densidades mejoran la robustez al histograma. Para ello usaremos `geom_density()`
+
+```{r eval = FALSE}
+datos <-
+  tibble("x" = rnorm(n = 10000,
+                     mean = 3, sd = 2))
+ggplot(data = datos,
+       aes(x = x)) +
+  geom_density(fill = "red", #<<
+               color = "black",#<<
+               alpha = 0.2) + #<< 
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE}
+datos <- tibble("x" = rnorm(n = 10000, mean = 3, sd = 2))
+ggplot(data = datos, aes(x = x)) +
+  geom_density(fill = "red", alpha = 0.2,
+               color = "black")
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+
+.pull-left[
+
+Replica el siguiente gráfico (prepara los datos como consideres):
+
+* Fuente: Roboto
+* Tamaño de título: 27
+* Alpha: 0.5
+* Paleta: `scale_fill_brewer(palette = "RdBu")` y `scale_color_brewer(palette = "RdBu")`
+
+]
+
+.pull-right[
+
+
+```{r echo = FALSE}
+# Hereda tema anterior
+
+ggplot(datos_final,
+       aes(x = prob, color = termino,
+           fill = termino)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+.pull-left[
+
+```{r eval = FALSE}
+# hereda tema anterior
+
+ggplot(datos_final,
+       aes(x = prob, color = termino,
+           fill = termino)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+.pull-right[
+
+
+```{r echo = FALSE}
+ggplot(datos_final,
+       aes(x = prob, color = termino,
+           fill = termino)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+---
+
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+A veces puede ser interesante **.bg-purple_light[superponer las densidades]**, lo cual lo podemos hacer con `geom_density_ridges()`, del paquete `{ggridges}`.
+
+.pull-left[
+
+```{r eval = FALSE}
+# hereda tema anterior
+
+library(ggridges)
+ggplot(datos_final,
+       aes(x = prob, y = termino, #<<
+           color = termino,
+           fill = termino)) +
+  geom_density_ridges(alpha = 0.5) + #<<
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Término",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE}
+library(ggridges)
+ggplot(datos_final,
+       aes(x = prob, y = termino, color = termino,
+           fill = termino)) +
+  geom_density_ridges(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Término",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+]
+
+---
+
+name: box-plot
+
+# Variables .orange[continuas]: .green[BOXPLOTS]
+
+Una opción muy habitual en variables continuas son los **.bg-purple_light[gráficos de cajas y bigotes]** o box-plots, algo que podemos hacer fácilmente con `geom_boxplot()`
+
+.pull-left[
+
+```{r eval = FALSE}
+ggplot(datos_final,
+       aes(x = termino, y = prob, fill = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE, out.width = "90%"}
+ggplot(datos_final,
+       aes(x = termino, y = prob, fill = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[BOXPLOTS]
+
+.pull-left[
+
+El resumen a veces puede ser insuficiente, podemos usar `geom_jitter()`, que nos añadirá puntos como un **.bg-purple_light[«gotelé aleatorio»]**
+
+Ver <https://hausetutorials.netlify.app/posts/2019-02-22-why-we-should-never-use-barplots-use-geomquasirandom-instead/>
+
+```{r eval = FALSE}
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino,
+           color = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  geom_jitter(alpha = 0.25, size = 2) +#<<
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE}
+ggplot(datos_final,
+       aes(x = termino, y = prob, color = termino,
+           fill = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  geom_jitter(alpha = 0.25, size = 2) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[BOXPLOTS]
+
+.pull-left[
+
+Podemos mejorar el **.bg-purple_light[«gotelé aleatorio»]** con  `geom_quasirandom()` del paquete `{ggbeeswarm}` (con `width = ...` controlamos la anchura de lo aleatorio)
+
+
+```{r eval = FALSE}
+library(ggbeeswarm)
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino, color = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  geom_quasirandom(size = 2,
+                   alpha = 0.4,
+                   width = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE}
+library(ggbeeswarm)
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino, color = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  geom_quasirandom(size = 2,
+                   alpha = 0.4,
+                   width = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+
+---
+
+# Variables .orange[continuas]: .green[VIOLIN]
+
+.pull-left[
+
+Para solventar los problemas de los box-plots, una alternativa muy popular son los **.bg-purple_light[gráficos de violín]** (en realidad es una densidad reflejada)
+
+
+```{r eval = FALSE}
+library(ggbeeswarm)
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino, color = termino)) +
+  geom_violin(alpha = 0.5,
+              scale = "count",
+              bw = 1.2) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+```{r echo = FALSE}
+library(ggbeeswarm)
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino, color = termino)) +
+  geom_violin(alpha = 0.5,
+              scale = "count",
+              bw = 1.2) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+---
+
+
 

@@ -15,6 +15,14 @@
     <script>window.xaringanExtraClipboard(null, {"button":"Click para copiar código","success":"Código copiado","error":"Ctrl+C para copiar"})</script>
     <link href="index_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
     <script src="index_files/panelset-0.2.6/panelset.js"></script>
+    <script src="index_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <script src="index_files/plotly-binding-4.9.4.1/plotly.js"></script>
+    <script src="index_files/typedarray-0.1/typedarray.min.js"></script>
+    <script src="index_files/jquery-3.5.1/jquery.min.js"></script>
+    <link href="index_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+    <script src="index_files/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+    <link href="index_files/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="index_files/plotly-main-1.57.1/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -24,7 +32,7 @@ class: center, middle, inverse, title-slide
 # Introducción a R
 ## Descripción y exploración de datos
 ### Javier Álvarez Liébana (Fac. Estudios Estadísticos - UCM)
-### Última actualización: 24-11-2022
+### Última actualización: 30-11-2022
 
 ---
 
@@ -1466,7 +1474,7 @@ hoy
 ```
 
 ```
-&gt; [1] "2022-11-24"
+&gt; [1] "2022-11-30"
 ```
 
 --
@@ -1479,7 +1487,7 @@ También podemos obtener el **.bg-purple_light[«hoy y ahora»]** con la funció
 ```
 
 ```
-&gt; [1] "2022-11-24 14:18:42 CET"
+&gt; [1] "2022-11-30 10:57:01 CET"
 ```
  
 ---
@@ -1824,7 +1832,7 @@ hoy - cumple
 ```
 
 ```
-&gt; Time difference of 12128 days
+&gt; Time difference of 12134 days
 ```
 
 ]
@@ -2679,9 +2687,9 @@ x &lt;- rnorm(1e3) # 1000 elementos aleatorias
 
 ```
 &gt; Unit: microseconds
-&gt;         expr    min      lq     mean  median      uq     max neval cld
-&gt;      sort(x) 41.650 46.1415 57.59418 49.3815 60.0405 217.909  1000   b
-&gt;  x[order(x)] 29.124 31.8585 39.32821 35.2325 40.6320 121.672  1000  a
+&gt;         expr    min      lq     mean  median     uq     max neval cld
+&gt;      sort(x) 41.583 45.9530 54.90516 49.3755 56.983 159.754  1000   b
+&gt;  x[order(x)] 29.170 31.5445 36.81783 33.5145 38.157 146.120  1000  a
 ```
 
 --
@@ -5438,12 +5446,12 @@ microbenchmark(x^2,
 
 ```
 &gt; Unit: nanoseconds
-&gt;                                     expr     min        lq        mean  median
-&gt;                                      x^2     361     478.5    1444.329    1150
-&gt;  for (i in 1:100) {     y[i] &lt;- x[i]^2 } 1708312 1968692.0 2621119.089 2179045
+&gt;                                     expr     min      lq        mean    median
+&gt;                                      x^2     357     549    1720.383    1349.5
+&gt;  for (i in 1:100) {     y[i] &lt;- x[i]^2 } 1719835 2194960 3134266.832 2816177.5
 &gt;         uq      max neval cld
-&gt;     2021.5    22316  1000  a 
-&gt;  2657185.5 39546919  1000   b
+&gt;     2173.5    30908  1000  a 
+&gt;  3579152.0 30660400  1000   b
 ```
 
 ---
@@ -6858,10 +6866,10 @@ map(x, mean)
 
 ```
 &gt; [[1]]
-&gt; [1] -0.04058291
+&gt; [1] 0.04621171
 &gt; 
 &gt; [[2]]
-&gt; [1] 1.992463
+&gt; [1] 2.037278
 ```
 
 
@@ -6873,11 +6881,11 @@ microbenchmark(map(x, .f = function(x) { mean(x^2) }), lapply(x, FUN = function(
 ```
 &gt; Unit: milliseconds
 &gt;                                            expr      min       lq     mean
-&gt;      map(x, .f = function(x) {     mean(x^2) }) 5.565120 7.017590 9.435914
-&gt;  lapply(x, FUN = function(x) {     mean(x^2) }) 5.356424 6.833607 9.630797
+&gt;      map(x, .f = function(x) {     mean(x^2) }) 5.472090 6.792580 9.193206
+&gt;  lapply(x, FUN = function(x) {     mean(x^2) }) 5.274403 6.656949 9.157242
 &gt;    median       uq      max neval cld
-&gt;  8.059604 10.99734 171.0983  1000   a
-&gt;  7.911553 10.61110 268.5830  1000   a
+&gt;  7.969238 10.70654 182.6661  1000   a
+&gt;  7.735429 10.18533 164.1261  1000   a
 ```
 
 
@@ -9958,14 +9966,14 @@ starwars %&gt;% slice_sample(n = 3)
 
 ```
 &gt; # A tibble: 3 × 14
-&gt;   name       height  mass hair_co…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
-&gt;   &lt;chr&gt;       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
-&gt; 1 Finn           NA    NA black     dark    dark         NA male  mascu… &lt;NA&gt;   
-&gt; 2 Gasgano       122    NA none      white,… black        NA male  mascu… Troiken
-&gt; 3 Mace Windu    188    84 none      dark    brown        72 male  mascu… Haruun…
+&gt;   name   height  mass hair_color skin_color eye_c…¹ birth…² sex   gender homew…³
+&gt;   &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
+&gt; 1 Finn       NA    NA black      dark       dark         NA male  mascu… &lt;NA&gt;   
+&gt; 2 C-3PO     167    75 &lt;NA&gt;       gold       yellow      112 none  mascu… Tatooi…
+&gt; 3 Greedo    173    74 &lt;NA&gt;       green      black        44 male  mascu… Rodia  
 &gt; # … with 4 more variables: species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
-&gt; #   starships &lt;list&gt;, and abbreviated variable names ¹​hair_color, ²​skin_color,
-&gt; #   ³​eye_color, ⁴​birth_year, ⁵​homeworld
+&gt; #   starships &lt;list&gt;, and abbreviated variable names ¹​eye_color, ²​birth_year,
+&gt; #   ³​homeworld
 &gt; # ℹ Use `colnames()` to see all variable names
 ```
 
@@ -9986,8 +9994,8 @@ starwars %&gt;% slice_sample(prop = 0.025)
 &gt; # A tibble: 2 × 14
 &gt;   name         height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
 &gt;   &lt;chr&gt;         &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
-&gt; 1 C-3PO           167    75 &lt;NA&gt;    gold    yellow    112   none  mascu… Tatooi…
-&gt; 2 Anakin Skyw…    188    84 blond   fair    blue       41.9 male  mascu… Tatooi…
+&gt; 1 Lama Su         229    88 none    grey    black        NA male  mascu… Kamino 
+&gt; 2 Ki-Adi-Mundi    198    82 white   pale    yellow       92 male  mascu… Cerea  
 &gt; # … with 4 more variables: species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
 &gt; #   starships &lt;list&gt;, and abbreviated variable names ¹​hair_color, ²​skin_color,
 &gt; #   ³​eye_color, ⁴​birth_year, ⁵​homeworld
@@ -10010,8 +10018,8 @@ starwars %&gt;% slice_sample(n = 2, weight_by = c(0.495, 0.495, rep(0.01/85, 85)
 &gt; # A tibble: 2 × 9
 &gt;   name           height  mass hair_color skin_color eye_c…¹ birth…² sex   gender
 &gt;   &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
-&gt; 1 C-3PO             167    75 &lt;NA&gt;       gold       yellow      112 none  mascu…
-&gt; 2 Luke Skywalker    172    77 blond      fair       blue         19 male  mascu…
+&gt; 1 Luke Skywalker    172    77 blond      fair       blue         19 male  mascu…
+&gt; 2 C-3PO             167    75 &lt;NA&gt;       gold       yellow      112 none  mascu…
 &gt; # … with abbreviated variable names ¹​eye_color, ²​birth_year
 ```
 
@@ -10294,9 +10302,9 @@ starwars %&gt;% slice_sample(n = 3)
 &gt; # A tibble: 3 × 14
 &gt;   name         height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
 &gt;   &lt;chr&gt;         &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
-&gt; 1 Jabba Desil…    175  1358 &lt;NA&gt;    green-… orange      600 herm… mascu… Nal Hu…
-&gt; 2 Lama Su         229    88 none    grey    black        NA male  mascu… Kamino 
-&gt; 3 Dooku           193    80 white   fair    brown       102 male  mascu… Serenno
+&gt; 1 Ratts Tyere…     79    15 none    grey, … unknown      NA male  mascu… Aleen …
+&gt; 2 Zam Wesell      168    55 blonde  fair, … yellow       NA fema… femin… Zolan  
+&gt; 3 Jocasta Nu      167    NA white   fair    blue         NA fema… femin… Corusc…
 &gt; # … with 4 more variables: species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
 &gt; #   starships &lt;list&gt;, and abbreviated variable names ¹​hair_color, ²​skin_color,
 &gt; #   ³​eye_color, ⁴​birth_year, ⁵​homeworld
@@ -10312,9 +10320,9 @@ starwars %&gt;% slice_sample(n = 3)
 &gt; # A tibble: 3 × 14
 &gt;   name         height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
 &gt;   &lt;chr&gt;         &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
-&gt; 1 BB8              NA  NA   none    none    black        NA none  mascu… &lt;NA&gt;   
-&gt; 2 Luminara Un…    170  56.2 black   yellow  blue         58 fema… femin… Mirial 
-&gt; 3 R2-D2            96  32   &lt;NA&gt;    white,… red          33 none  mascu… Naboo  
+&gt; 1 Cordé           157    NA brown   light   brown        NA fema… femin… Naboo  
+&gt; 2 Ayla Secura     178    55 none    blue    hazel        48 fema… femin… Ryloth 
+&gt; 3 Poggle the …    183    80 none    green   yellow       NA male  mascu… Geonos…
 &gt; # … with 4 more variables: species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
 &gt; #   starships &lt;list&gt;, and abbreviated variable names ¹​hair_color, ²​skin_color,
 &gt; #   ³​eye_color, ⁴​birth_year, ⁵​homeworld
@@ -10336,14 +10344,14 @@ starwars %&gt;%
 &gt; # A tibble: 8 × 14
 &gt;   name         height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
 &gt;   &lt;chr&gt;         &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
-&gt; 1 Luke Skywal…    172    77 blond   fair    blue         19 male  mascu… Tatooi…
-&gt; 2 Cordé           157    NA brown   light   brown        NA fema… femin… Naboo  
-&gt; 3 Wicket Syst…     88    20 brown   brown   brown         8 male  mascu… Endor  
-&gt; 4 Dexter Jett…    198   102 none    brown   yellow       NA male  mascu… Ojom   
-&gt; 5 Ki-Adi-Mundi    198    82 white   pale    yellow       92 male  mascu… Cerea  
-&gt; 6 Cliegg Lars     183    NA brown   fair    blue         82 male  mascu… Tatooi…
-&gt; 7 Finis Valor…    170    NA blond   fair    blue         91 male  mascu… Corusc…
-&gt; 8 Tarfful         234   136 brown   brown   blue         NA male  mascu… Kashyy…
+&gt; 1 Gasgano         122    NA none    white,… black        NA male  mascu… Troiken
+&gt; 2 Dud Bolt         94    45 none    blue, … yellow       NA male  mascu… Vulpter
+&gt; 3 Arvel Crynyd     NA    NA brown   fair    brown        NA male  mascu… &lt;NA&gt;   
+&gt; 4 Shaak Ti        178    57 none    red, b… black        NA fema… femin… Shili  
+&gt; 5 Finis Valor…    170    NA blond   fair    blue         91 male  mascu… Corusc…
+&gt; 6 San Hill        191    NA none    grey    gold         NA male  mascu… Muunil…
+&gt; 7 Darth Maul      175    80 none    red     yellow       54 male  mascu… Dathom…
+&gt; 8 Kit Fisto       196    87 none    green   black        NA male  mascu… Glee A…
 &gt; # … with 4 more variables: species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;,
 &gt; #   starships &lt;list&gt;, and abbreviated variable names ¹​hair_color, ²​skin_color,
 &gt; #   ³​eye_color, ⁴​birth_year, ⁵​homeworld
@@ -15954,6 +15962,1149 @@ plot_combined &lt;-
 
 
 
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+
+El gráfico anterior (diagrama de puntos o scatter plot) está principalmente pasado para **.bg-purple_light[representar variables numéricas spanontinuas]**. ¿Y si tengo **.bg-orange[variables discretas o cualitativas]**?
+
+Vamos a usar el ya conocido conjunto `starwars` para visualizar en un **.bg-purple_light[diagrama de barras]**: vamos a representar la **.bg-purple_light[frecuencia]**  de una **.bg-orange[variable cualitativa]** como es `sex`.
+
+
+```r
+starwars %&gt;% 
+  count(sex)
+```
+
+```
+&gt; # A tibble: 5 × 2
+&gt;   sex                n
+&gt;   &lt;chr&gt;          &lt;int&gt;
+&gt; 1 female            16
+&gt; 2 hermaphroditic     1
+&gt; 3 male              60
+&gt; 4 none               6
+&gt; 5 &lt;NA&gt;               4
+```
+
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Para visualizar un **diagrama de barras** todo lo que hemos aprendido nos sirve: solo tenemos que **.bg-purple_light[cambiar la geometría]** con `geom_bar()` en lugar de `geom_point()`, con `x = sex` (ggplot hará solo el recuento por nosotros)
+
+
+```r
+starwars &lt;- starwars %&gt;% drop_na(sex)
+ggplot(starwars,
+       aes(x = sex)) +
+* geom_bar() +
+  theme_minimal()
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-714-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Podemos aplicar lo aprendido sobre **.bg-purple_light[colores para codificar]** la información, en este caso vamos a usar las paletas ya cargadas en `scale_color_brewer()` (info en &lt;https://colorbrewer2.org&gt;). Fíjate que ahora será importante distinguir entre `color` y `fill`
+
+
+```r
+ggplot(starwars, aes(x = sex)) +
+* geom_bar(aes(color = sex),
+           alpha = 0.5) + 
+  scale_color_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-716-1.png" width="95%" /&gt;
+
+]
+
+---
+
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Fíjate que ahora será importante distinguir entre `color` y `fill`
+
+
+```r
+ggplot(starwars, aes(x = sex)) +
+* geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  theme_minimal()
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-718-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Podemos personalizar el gráfico haciendo uso de las opciones ya vistas.
+
+
+```r
+theme_set(theme_minimal())
+theme_update(
+  plot.title =
+    element_text(size = 25, face = "bold"),
+  plot.subtitle = element_text(size = 13),
+  plot.caption = element_text(size = 9)
+)
+
+ggplot(starwars, aes(x = sex)) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle = "Frec. de variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-720-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Haciendo uso de los que sabemos **.bg-purple_light[sobre factores]** podemos indicarle que nos ordene las columnas de mayor a menor frecuencia, usando simplemente `fct_infreq()`
+
+
+```r
+ggplot(starwars,
+       aes(x = fct_infreq(sex))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-722-1.png" width="95%" /&gt;
+
+]
+
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Para cambiar el rol de los ejes, generando un diagrama de **.bg-purple_light[barras horizontales]**, podemos dejar el gráfico igual y luego simplemente hacer `coord_flip()`
+
+
+```r
+ggplot(starwars,
+       aes(x = fct_infreq(sex))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+* coord_flip() +
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-724-1.png" width="90%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Para **.bg-purple_light[invertir el orden de los factores]** basta usar `fct_rev()`
+
+
+```r
+ggplot(starwars,
+       aes(x = fct_rev(fct_infreq(sex)))) +
+  geom_bar(aes(fill = sex),
+           alpha = 0.5) + 
+* coord_flip() +
+  scale_fill_brewer(palette = "Dark2") + 
+  labs(x = "Sexo", y = "Frecuencia",
+       fill = "Sexo",
+       title = "Diagrama de barras de starwars",
+       subtitle =
+         "Frec. de la variable sexo",
+       caption =
+         "Autor: J. Álvarez Liébana")
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-726-1.png" width="90%" /&gt;
+
+]
+
+
+---
+
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+La capa `geom_bar()` está solo pensada para **.bg-purple_light[conteos de variables discretas o cualitativas]**. ¿Y si queremos visualizar en gapminder el producto interior bruto por año? Usaremos `geom_col()` (ahora si necesitamos dos argumentos x,y)
+
+
+
+```r
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+* geom_col() +
+  theme_minimal()
+```
+
+Fíjate que por defecto lo que hace es **.bg-purple_light[sumar la variable continua]** en cada año
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-728-1.png" width="95%" /&gt;
+
+]
+
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Si añadimos `fill = continent` nos creará lo que se conoce como **.bg-purple_light[diagrama de barras apilado]** (en cada barra apilará los continentes uno encima de otros). Usaremos una paleta `scale_fill_colorblind()` pensada para personas daltónicas.
+
+
+
+```r
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+* geom_col(aes(fill = continent),
+           alpha = 0.7) + 
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-730-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Si añadimos `position = "dodge"` nos creará lo que se conoce como **.bg-purple_light[diagrama de barras desapilado]**: nos pinta las barras de cada país y año (coloreados por continente) unas al lado de otras. 
+
+
+
+```r
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+*          position = "dodge") +
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-732-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+En este caso no parece una muy buena idea ya que tenemos muchos países. Si usamos `position = "dodge2"` nos creará el gráfico pero usando el máximo de cada grupo (continente).
+
+
+```r
+ggplot(gapminder,
+       aes(y = gdpPercap, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+*          position = "dodge2") +
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-734-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Podemos hacer antes un resumen para visualizar la media por continente y año
+
+
+```r
+gapminder_continent &lt;-
+  gapminder %&gt;% 
+  group_by(continent, year) %&gt;%
+  summarise(mean_gdp = mean(gdpPercap)) %&gt;% 
+  ungroup()
+ggplot(gapminder_continent,
+       aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+*          position = "dodge2") +
+  scale_fill_colorblind() +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-736-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Diagrama de .orange[BARRAS]
+
+.pull-left[
+
+Con `position = fill` lo que hacemos es que todas las barras ocupen lo mismo para **.bg-purple_light[facilitar la comparación]** (añadimos de paso la leyenda debajo)
+
+
+```r
+ggplot(gapminder_continent,
+       aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent),
+           alpha = 0.7,
+*          position = "fill") +
+  scale_fill_colorblind() +
+  theme_minimal() +
+* theme(legend.position = "bottom") +
+  labs(x = "Año", y = "PIB medio",
+       fill = "continente",
+       title = "Diagrama de barras")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-738-1.png" width="95%" /&gt;
+
+]
+
+
+---
+
+name: html-textos
+
+# .orange[HTML] en textos
+
+Con el paquete `{ggtext}` podemos indicarle dentro del tema `theme()` si alguno de los elementos lo vamos a querer **.bg-purple_light[escribir en HTML dando colores a textos]** haciendo uso de `element_markdown()`
+
+
+```r
+library(ggtext)
+ggplot(gapminder_continent, aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent), alpha = 0.7, position = "fill") +
+  scale_fill_colorblind() +
+  theme_minimal() +
+* theme(legend.position = "none",
+*       plot.subtitle = element_markdown(face = "bold")) +
+  labs(x = "Año", y = "PIB medio",
+       title = "Diagrama de barras",
+       subtitle = "Media del PIB en &lt;span style = 'color:#606060;'&gt;África&lt;/span&gt;, &lt;span style = 'color:#f3bb53;'&gt;América&lt;/span&gt;, &lt;span style = 'color:#7bcbf3;'&gt;Asia&lt;/span&gt;, &lt;span style = 'color:#48bf9f;'&gt;Europa&lt;/span&gt; y &lt;span style = 'color:#f3eb73;'&gt;Oceanía&lt;/span&gt;")
+```
+
+---
+
+# .orange[HTML] en textos
+
+&lt;img src="index_files/figure-html/unnamed-chunk-740-1.png" width="50%" /&gt;
+
+---
+  
+# .orange[INTERACTIVOS]: plotly
+
+También podemos crear **.bg-purple_light[gráficos interactivos]**: vamos a añadirle un  nuevo **.bg-purple_light[atributo de texto]** dentro de `geom_col()`, que construimos con `str_glue()` (&lt;b&gt;...&lt;/b&gt; para meter negrita en HTML). Y guardamos el gráfico
+
+
+```r
+gg &lt;-
+  ggplot(gapminder_continent, aes(y = mean_gdp, x = year)) +
+  geom_col(aes(fill = continent,
+* text =
+  str_glue(
+  "&lt;b&gt;PIB medio&lt;/b&gt;: {round(mean_gdp, 2)}$
+  &lt;b&gt;Continente&lt;/b&gt;: {continent}
+  &lt;b&gt;Año&lt;/b&gt;: {year}")),
+  alpha = 0.7, position = "fill") +
+  scale_fill_colorblind() +
+  theme_minimal() +
+  theme(legend.position = "bottom") + 
+  labs(x = "Año", y = "PIB medio",
+       title = "Diagrama de barras")
+```
+
+---
+
+# .orange[INTERACTIVOS]: plotly
+
+
+La librería `{plotly}` es una librería poco conocida pero muy completa para generar **.bg-purple_light[gráficos interactivos]**. Podemos o usar la gramática propia de dicho paquete o, aprovechando que tenemos ya el gráfico generado en ggplot, **.bg-purple_light[convertirlo a interactivo]** con `ggplotly()` (indicándole en `tooltip = ...` que atributos queremos que se visualicen al pasar el ratón)
+
+
+```r
+library(plotly)
+ggplotly(gg, tooltip = c("text"))
+```
+
+
+---
+
+# .orange[INTERACTIVOS]: plotly
+
+<div id="htmlwidget-f98bf7122ef05a12c1b1" style="width:70%;height:700px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f98bf7122ef05a12c1b1">{"x":{"data":[{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0.952708598111373,0.954358779223076,0.951996569463208,0.946505693830392,0.949044996083606,0.947543903123967,0.951902519311172,0.958756869122911,0.959913418875341,0.96294946569192,0.963239654619816,0.962065066059655],"x":[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],"y":[0.0472914018886267,0.0456412207769236,0.0480034305367918,0.0534943061696077,0.0509550039163942,0.0524560968760334,0.0480974806888278,0.0412431308770888,0.0400865811246586,0.0370505343080801,0.0367603453801837,0.0379349339403448],"text":["<b>PIB medio<\/b>: 1252.57$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1952","<b>PIB medio<\/b>: 1385.24$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1957","<b>PIB medio<\/b>: 1598.08$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1962","<b>PIB medio<\/b>: 2050.36$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1967","<b>PIB medio<\/b>: 2339.62$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1972","<b>PIB medio<\/b>: 2585.94$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1977","<b>PIB medio<\/b>: 2481.59$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1982","<b>PIB medio<\/b>: 2282.67$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1987","<b>PIB medio<\/b>: 2281.81$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1992","<b>PIB medio<\/b>: 2378.76$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 1997","<b>PIB medio<\/b>: 2599.39$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 2002","<b>PIB medio<\/b>: 3089.03$<br /><b>Continente<\/b>: Africa<br /><b>Año<\/b>: 2007"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(0,0,0,0.7)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Africa","legendgroup":"Africa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0.798701870557711,0.802267827448396,0.804763015622975,0.798620090389056,0.80766880335025,0.798407488322447,0.806409222067998,0.817946165434532,0.818580937822493,0.824493544042868,0.831893894997778,0.826942090273792],"x":[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],"y":[0.154006727553662,0.15209095177468,0.147233553840233,0.147885603441337,0.141376192733356,0.14913641480152,0.145493297243174,0.140810703688379,0.141332481052848,0.138455921649052,0.131345759622038,0.135122975785863],"text":["<b>PIB medio<\/b>: 4079.06$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1952","<b>PIB medio<\/b>: 4616.04$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1957","<b>PIB medio<\/b>: 4901.54$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1962","<b>PIB medio<\/b>: 5668.25$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1967","<b>PIB medio<\/b>: 6491.33$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1972","<b>PIB medio<\/b>: 7352.01$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1977","<b>PIB medio<\/b>: 7506.74$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1982","<b>PIB medio<\/b>: 7793.4$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1987","<b>PIB medio<\/b>: 8044.93$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1992","<b>PIB medio<\/b>: 8889.3$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 1997","<b>PIB medio<\/b>: 9287.68$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 2002","<b>PIB medio<\/b>: 11003.03$<br /><b>Continente<\/b>: Americas<br /><b>Año<\/b>: 2007"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(230,159,0,0.7)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Americas","legendgroup":"Americas","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0.602544180088376,0.611571668066277,0.632662996195583,0.642831260862377,0.629352123287509,0.640359676402933,0.662323073382788,0.680481170377275,0.66679985463529,0.671321942380566,0.688012533042515,0.673766805031049],"x":[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],"y":[0.196157690469336,0.190696159382119,0.172100019427393,0.155788829526678,0.178316680062741,0.158047811919513,0.14408614868521,0.137464995057257,0.151781083187203,0.153171601662302,0.143881361955263,0.153175285242743],"text":["<b>PIB medio<\/b>: 5195.48$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1952","<b>PIB medio<\/b>: 5787.73$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1957","<b>PIB medio<\/b>: 5729.37$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1962","<b>PIB medio<\/b>: 5971.17$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1967","<b>PIB medio<\/b>: 8187.47$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1972","<b>PIB medio<\/b>: 7791.31$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1977","<b>PIB medio<\/b>: 7434.14$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1982","<b>PIB medio<\/b>: 7608.23$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1987","<b>PIB medio<\/b>: 8639.69$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1992","<b>PIB medio<\/b>: 9834.09$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 1997","<b>PIB medio<\/b>: 10174.09$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 2002","<b>PIB medio<\/b>: 12473.03$<br /><b>Continente<\/b>: Asia<br /><b>Año<\/b>: 2007"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(86,180,233,0.7)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Asia","legendgroup":"Asia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0.388808568323732,0.382151994507502,0.381378729766887,0.378177342598925,0.357556711514759,0.350607313964265,0.35962174808262,0.369454003067469,0.36706419161515,0.374190205332155,0.380966545678531,0.366084683349535],"x":[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],"y":[0.213735611764644,0.229419673558775,0.251284266428695,0.264653918263452,0.27179541177275,0.289752362438668,0.302701325300168,0.311027167309806,0.299735663020141,0.297131737048411,0.307045987363984,0.307682121681514],"text":["<b>PIB medio<\/b>: 5661.06$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1952","<b>PIB medio<\/b>: 6963.01$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1957","<b>PIB medio<\/b>: 8365.49$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1962","<b>PIB medio<\/b>: 10143.82$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1967","<b>PIB medio<\/b>: 12479.58$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1972","<b>PIB medio<\/b>: 14283.98$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1977","<b>PIB medio<\/b>: 15617.9$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1982","<b>PIB medio<\/b>: 17214.31$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1987","<b>PIB medio<\/b>: 17061.57$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1992","<b>PIB medio<\/b>: 19076.78$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 1997","<b>PIB medio<\/b>: 21711.73$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 2002","<b>PIB medio<\/b>: 25054.48$<br /><b>Continente<\/b>: Europe<br /><b>Año<\/b>: 2007"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(0,158,115,0.7)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Europe","legendgroup":"Europe","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":[4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5,4.5],"base":[0,0,0,0,0,0,0,0,0,0,0,0],"x":[1952,1957,1962,1967,1972,1977,1982,1987,1992,1997,2002,2007],"y":[0.388808568323732,0.382151994507502,0.381378729766887,0.378177342598925,0.357556711514759,0.350607313964265,0.35962174808262,0.369454003067469,0.36706419161515,0.374190205332155,0.380966545678531,0.366084683349535],"text":["<b>PIB medio<\/b>: 10298.09$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1952","<b>PIB medio<\/b>: 11598.52$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1957","<b>PIB medio<\/b>: 12696.45$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1962","<b>PIB medio<\/b>: 14495.02$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1967","<b>PIB medio<\/b>: 16417.33$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1972","<b>PIB medio<\/b>: 17283.96$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1977","<b>PIB medio<\/b>: 18554.71$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1982","<b>PIB medio<\/b>: 20448.04$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1987","<b>PIB medio<\/b>: 20894.05$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1992","<b>PIB medio<\/b>: 24024.18$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 1997","<b>PIB medio<\/b>: 26938.78$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 2002","<b>PIB medio<\/b>: 29810.19$<br /><b>Continente<\/b>: Oceania<br /><b>Año<\/b>: 2007"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(240,228,66,0.7)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Oceania","legendgroup":"Oceania","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":48.9497716894977},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Diagrama de barras","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1946.775,2012.225],"tickmode":"array","ticktext":["1960","1980","2000"],"tickvals":[1960,1980,2000],"categoryorder":"array","categoryarray":["1960","1980","2000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Año","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.05,1.05],"tickmode":"array","ticktext":["0.00","0.25","0.50","0.75","1.00"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0.00","0.25","0.50","0.75","1.00"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"PIB medio","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":0.938132733408324},"annotations":[{"text":"continent","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"54d525909a0":{"x":{},"y":{},"fill":{},"text":{},"type":"bar"}},"cur_data":"54d525909a0","visdat":{"54d525909a0":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Vamos a analizar un conjunto de datos interesante, que contiene las respuestas a las pregunta **.bg-purple_light[«¿Qué probabilidad (%) asignarías al término ...]**
+
+* **.bg-purple_light[«almost no chance»]**
+* **.bg-purple_light[«probable»]**
+* **.bg-purple_light[«almost certainly»]**
+
+...con el objetivo de **.bg-purple_light[comprender cómo la gente percibe el vocabulario]** de la probabilidad.
+
+
+```r
+datos &lt;-
+  read_csv("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv")
+datos
+```
+
+```
+&gt; # A tibble: 46 × 17
+&gt;    Almost Certa…¹ Highl…² Very …³ Proba…⁴ Likely Proba…⁵ We Be…⁶ Bette…⁷ About…⁸
+&gt;             &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+&gt;  1             95      80      85      75     66      75      66      55      50
+&gt;  2             95      75      75      51     75      51      51      51      50
+&gt;  3             95      85      85      70     75      70      80      60      50
+&gt;  4             95      85      85      70     75      70      80      60      50
+&gt;  5             98      95      80      70     70      75      65      60      50
+&gt;  6             95      99      85      90     75      75      80      65      50
+&gt;  7             85      95      65      80     40      45      80      60      45
+&gt;  8             97      95      75      70     70      80      75      55      50
+&gt;  9             95      95      80      70     65      80      65      55      50
+&gt; 10             90      85      90      70     75      70      65      60      52
+&gt; # … with 36 more rows, 8 more variables: `We Doubt` &lt;dbl&gt;, Improbable &lt;dbl&gt;,
+&gt; #   Unlikely &lt;dbl&gt;, `Probably Not` &lt;dbl&gt;, `Little Chance` &lt;dbl&gt;,
+&gt; #   `Almost No Chance` &lt;dbl&gt;, `Highly Unlikely` &lt;dbl&gt;,
+&gt; #   `Chances Are Slight` &lt;dbl&gt;, and abbreviated variable names
+&gt; #   ¹​`Almost Certainly`, ²​`Highly Likely`, ³​`Very Good Chance`, ⁴​Probable,
+&gt; #   ⁵​Probably, ⁶​`We Believe`, ⁷​`Better Than Even`, ⁸​`About Even`
+&gt; # ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+Vamos a analizar un conjunto de datos interesante, que contiene las respuestas a las pregunta **.bg-purple_light[«¿Qué probabilidad (%) asignarías al término ...]**
+
+* **.bg-purple_light[«almost no chance»]**
+* **.bg-purple_light[«probable»]**
+* **.bg-purple_light[«almost certainly»]**
+
+...con el objetivo de **.bg-purple_light[comprender cómo la gente percibe el vocabulario]** de la probabilidad.
+
+
+
+```r
+glimpse(datos)
+```
+
+```
+&gt; Rows: 46
+&gt; Columns: 17
+&gt; $ `Almost Certainly`   &lt;dbl&gt; 95.0, 95.0, 95.0, 95.0, 98.0, 95.0, 85.0, 97.0, 9…
+&gt; $ `Highly Likely`      &lt;dbl&gt; 80, 75, 85, 85, 95, 99, 95, 95, 95, 85, 90, 97, 8…
+&gt; $ `Very Good Chance`   &lt;dbl&gt; 85, 75, 85, 85, 80, 85, 65, 75, 80, 90, 85, 70, 7…
+&gt; $ Probable             &lt;dbl&gt; 75, 51, 70, 70, 70, 90, 80, 70, 70, 70, 70, 75, 7…
+&gt; $ Likely               &lt;dbl&gt; 66, 75, 75, 75, 70, 75, 40, 70, 65, 75, 60, 75, 6…
+&gt; $ Probably             &lt;dbl&gt; 75, 51, 70, 70, 75, 75, 45, 80, 80, 70, 75, 75, 5…
+&gt; $ `We Believe`         &lt;dbl&gt; 66, 51, 80, 80, 65, 80, 80, 75, 65, 65, 80, 90, 6…
+&gt; $ `Better Than Even`   &lt;dbl&gt; 55.0, 51.0, 60.0, 60.0, 60.0, 65.0, 60.0, 55.0, 5…
+&gt; $ `About Even`         &lt;dbl&gt; 50, 50, 50, 50, 50, 50, 45, 50, 50, 52, 50, 50, 5…
+&gt; $ `We Doubt`           &lt;dbl&gt; 40, 20, 30, 30, 10, 7, 45, 25, 20, 60, 25, 17, 20…
+&gt; $ Improbable           &lt;dbl&gt; 20, 49, 10, 10, 50, 15, 35, 30, 30, 20, 1, 10, 5,…
+&gt; $ Unlikely             &lt;dbl&gt; 30, 25, 25, 25, 5, 8, 20, 15, 35, 30, 15, 10, 30,…
+&gt; $ `Probably Not`       &lt;dbl&gt; 15.0, 49.0, 25.0, 25.0, 20.0, 15.0, 40.0, 25.0, 3…
+&gt; $ `Little Chance`      &lt;dbl&gt; 20, 5, 20, 20, 5, 5, 20, 20, 15, 20, 20, 17, 10, …
+&gt; $ `Almost No Chance`   &lt;dbl&gt; 5, 5, 1, 1, 1, 1, 10, 3, 5, 10, 15, 2, 5, 2, 95, …
+&gt; $ `Highly Unlikely`    &lt;dbl&gt; 25, 10, 5, 5, 2, 3, 20, 5, 15, 6, 10, 3, 5, 3, 90…
+&gt; $ `Chances Are Slight` &lt;dbl&gt; 25, 5, 15, 15, 10, 20, 30, 10, 10, 25, 15, 5, 15,…
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+.pull-left[
+
+Replica el siguiente gráfico (prepara los datos como consideres):
+
+* Fuente: Roboto
+* Tamaño de título: 27
+* Alpha: 0.75
+* Paleta: `scale_fill_brewer(palette = "RdBu")`
+
+]
+
+.pull-right[
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-746-1.png" width="90%" /&gt;
+
+]
+
+
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Lo primero que deberemos hacer es **.bg-purple_light[preparar nuestros datos]** para la posterior visualización: en `{ggplot2}` suele ser en formato tidy
+
+
+
+```r
+datos_tidy &lt;-
+  datos %&gt;%
+  pivot_longer(cols = everything(),
+               names_to = "termino", values_to = "prob")
+datos_tidy
+```
+
+```
+&gt; # A tibble: 782 × 2
+&gt;    termino           prob
+&gt;    &lt;chr&gt;            &lt;dbl&gt;
+&gt;  1 Almost Certainly    95
+&gt;  2 Highly Likely       80
+&gt;  3 Very Good Chance    85
+&gt;  4 Probable            75
+&gt;  5 Likely              66
+&gt;  6 Probably            75
+&gt;  7 We Believe          66
+&gt;  8 Better Than Even    55
+&gt;  9 About Even          50
+&gt; 10 We Doubt            40
+&gt; # … with 772 more rows
+&gt; # ℹ Use `print(n = ...)` to see more rows
+```
+
+---
+
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Para entender mejor los datos vamos a **.bg-purple_light[realizar un resumen de los datos]** calculando la **.bg-purple_light[media de probabilidad asignada]**
+
+
+```r
+datos_tidy %&gt;% 
+  group_by(termino) %&gt;% 
+  summarise(mean_prob = mean(prob)) %&gt;% 
+  ungroup() %&gt;% 
+  arrange(mean_prob)
+```
+
+```
+&gt; # A tibble: 17 × 2
+&gt;    termino            mean_prob
+&gt;    &lt;chr&gt;                  &lt;dbl&gt;
+&gt;  1 Almost No Chance        5.63
+&gt;  2 Highly Unlikely        10.1 
+&gt;  3 Chances Are Slight     14.1 
+&gt;  4 Little Chance          16.0 
+&gt;  5 Improbable             18.0 
+&gt;  6 Unlikely               19.9 
+&gt;  7 We Doubt               27.9 
+&gt;  8 Probably Not           29.5 
+&gt;  9 About Even             49.6 
+&gt; 10 Better Than Even       58.4 
+&gt; 11 We Believe             68.5 
+&gt; 12 Probable               71.5 
+&gt; 13 Probably               71.5 
+&gt; 14 Likely                 72   
+&gt; 15 Very Good Chance       79.8 
+&gt; 16 Highly Likely          86.2 
+&gt; 17 Almost Certainly       92.6
+```
+
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Por último, para simplificar los gráficos, vamos a **.bg-purple_light[filtrar solo algunos términos]** (tras convertirlos a factor en función de su media de probabilidad con `fct_reorder()`)
+
+
+```r
+datos_final &lt;-
+  datos_tidy %&gt;% 
+  mutate(termino = fct_reorder(termino, prob, .fun = mean)) %&gt;% 
+  filter(termino %in%
+           c("Almost No Chance", "Highly Unlikely", "Improbable",
+             "Probably Not", "About Even",
+             "We Believe", "Probably", "Highly Likely",
+             "Almost Certainly"))
+datos_final %&gt;% count(termino)
+```
+
+```
+&gt; # A tibble: 9 × 2
+&gt;   termino              n
+&gt;   &lt;fct&gt;            &lt;int&gt;
+&gt; 1 Almost No Chance    46
+&gt; 2 Highly Unlikely     46
+&gt; 3 Improbable          46
+&gt; 4 Probably Not        46
+&gt; 5 About Even          46
+&gt; 6 We Believe          46
+&gt; 7 Probably            46
+&gt; 8 Highly Likely       46
+&gt; 9 Almost Certainly    46
+```
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+.pull-left[
+
+
+```r
+datos_resumen &lt;-
+  datos_final %&gt;%
+  group_by(termino) %&gt;%
+  summarise(media = mean(prob))
+
+ggplot(datos_resumen,
+       aes(x = termino, y = media, fill = termino)) +
+  geom_col(alpha = 0.7) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad media (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-751-1.png" width="100%" /&gt;
+
+]
+  
+---
+
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+Lo anterior es un diagrama de barras y hemos tenido que **.bg-purple_light[perder información]** por el camino (hemos tenido que resumir nuestros datos) dado que una diagrama de barras no nos permite visualizar una **.bg-purple_light[variable continua]**.
+
+.pull-left[
+
+Para ello haremos uso de un **.bg-purple_light[histograma]** con `geom_histogram()`
+
+
+```r
+datos &lt;-
+  tibble("x" = rnorm(n = 10000,
+                     mean = 3, sd = 2))
+ggplot(data = datos,
+       aes(x = x)) +
+  geom_histogram()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-753-1.png" width="80%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+El argumento `bins = ...` nos servirá para personalizar el nímero de barras que queremos. Fíjate que el gráfico es una **.bg-purple_light[aproximación discreta]** de un gráfico de densidad.
+
+
+```r
+ggplot(data = datos,
+       aes(x = x)) +
+* geom_histogram(bins = 7)
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-755-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+El argumento `bins = ...` nos servirá para personalizar el nímero de barras que queremos. Fíjate que el gráfico es una **.bg-purple_light[aproximación discreta]** de un gráfico de densidad.
+
+
+```r
+ggplot(data = datos,
+       aes(x = x)) +
+* geom_histogram(bins = 50)
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-757-1.png" width="95%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+Replica el siguiente gráfico:
+
+* Fuente: Roboto
+* Tamaño de título: 27
+* Alpha: 0.85
+* Paleta: `scale_fill_brewer(palette = "RdBu")`
+* Bins: `bins = 18`
+
+]
+
+.pull-right[
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-758-1.png" width="100%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[HISTOGRAMA]
+
+
+.pull-left[
+
+
+
+```r
+library(showtext)
+font_add_google(family = "Roboto",
+                name = "Roboto")
+showtext_auto()
+theme_set(theme_minimal(base_family = "Roboto"))
+theme_update(
+  plot.title = element_text(color = "black", face = "bold", size = 27),
+  legend.position = "bottom")
+
+ggplot(datos_final,
+       aes(x = prob, fill = termino)) +
+  geom_histogram(alpha = 0.85, bins = 18) +
+  scale_fill_brewer(palette = "RdBu") +
+  facet_wrap(~termino, scale = "free_y",
+             nrow = 3) +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+
+.pull-right[
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-760-1.png" width="100%" /&gt;
+
+]
+
+---
+
+name: densidad
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+
+.pull-left[
+
+Los histogramas en realidad son una **.bg-purple_light[aproximación discreta de los gráficos de densidad]** (asumiendo que los intervalos se pudieran ir haciendo tan pequeños como queramos, generado una curva continua). Las densidades mejoran la robustez al histograma. Para ello usaremos `geom_density()`
+
+
+```r
+datos &lt;-
+  tibble("x" = rnorm(n = 10000,
+                     mean = 3, sd = 2))
+ggplot(data = datos,
+       aes(x = x)) +
+* geom_density(fill = "red",
+*              color = "black",
+*              alpha = 0.2) +
+  theme_minimal()
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-762-1.png" width="100%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+
+.pull-left[
+
+Replica el siguiente gráfico (prepara los datos como consideres):
+
+* Fuente: Roboto
+* Tamaño de título: 27
+* Alpha: 0.5
+* Paleta: `scale_fill_brewer(palette = "RdBu")` y `scale_color_brewer(palette = "RdBu")`
+
+]
+
+.pull-right[
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-763-1.png" width="100%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+.pull-left[
+
+
+```r
+# hereda tema anterior
+
+ggplot(datos_final,
+       aes(x = prob, color = termino,
+           fill = termino)) +
+  geom_density(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Frecuencia relativa (%)",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+.pull-right[
+
+
+&lt;img src="index_files/figure-html/unnamed-chunk-765-1.png" width="100%" /&gt;
+
+]
+
+---
+
+
+# Variables .orange[continuas]: .green[DENSIDAD]
+
+A veces puede ser interesante **.bg-purple_light[superponer las densidades]**, lo cual lo podemos hacer con `geom_density_ridges()`, del paquete `{ggridges}`.
+
+.pull-left[
+
+
+```r
+# hereda tema anterior
+
+library(ggridges)
+ggplot(datos_final,
+*      aes(x = prob, y = termino,
+           color = termino,
+           fill = termino)) +
+* geom_density_ridges(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(y = "Término",
+       x = "Probabilidad (%)",
+       title = "Percepción de la probabilidad",
+       fill = "Términos")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-767-1.png" width="100%" /&gt;
+]
+
+---
+
+name: box-plot
+
+# Variables .orange[continuas]: .green[BOXPLOTS]
+
+Una opción muy habitual en variables continuas son los **.bg-purple_light[gráficos de cajas y bigotes]** o box-plots, algo que podemos hacer fácilmente con `geom_boxplot()`
+
+.pull-left[
+
+
+```r
+ggplot(datos_final,
+       aes(x = termino, y = prob, fill = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-769-1.png" width="90%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[BOXPLOTS]
+
+.pull-left[
+
+El resumen a veces puede ser insuficiente, podemos usar `geom_jitter()`, que nos añadirá puntos como un **.bg-purple_light[«gotelé aleatorio»]**
+
+Ver &lt;https://hausetutorials.netlify.app/posts/2019-02-22-why-we-should-never-use-barplots-use-geomquasirandom-instead/&gt;
+
+
+```r
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino,
+           color = termino)) +
+  geom_boxplot(alpha = 0.5) +
+* geom_jitter(alpha = 0.25, size = 2) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-771-1.png" width="100%" /&gt;
+
+]
+
+---
+
+# Variables .orange[continuas]: .green[BOXPLOTS]
+
+.pull-left[
+
+Podemos mejorar el **.bg-purple_light[«gotelé aleatorio»]** con  `geom_quasirandom()` del paquete `{ggbeeswarm}` (con `width = ...` controlamos la anchura de lo aleatorio)
+
+
+
+```r
+library(ggbeeswarm)
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino, color = termino)) +
+  geom_boxplot(alpha = 0.5) +
+  geom_quasirandom(size = 2,
+                   alpha = 0.4,
+                   width = 0.5) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-773-1.png" width="100%" /&gt;
+
+]
+
+
+---
+
+# Variables .orange[continuas]: .green[VIOLIN]
+
+.pull-left[
+
+Para solventar los problemas de los box-plots, una alternativa muy popular son los **.bg-purple_light[gráficos de violín]** (en realidad es una densidad reflejada)
+
+
+
+```r
+library(ggbeeswarm)
+ggplot(datos_final,
+       aes(x = termino, y = prob,
+           fill = termino, color = termino)) +
+  geom_violin(alpha = 0.5,
+              scale = "count",
+              bw = 1.2) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_brewer(palette = "RdBu") +
+  guides(color = "none") +
+  labs(fill = "Términos",
+       y = "Probabilidad (%)",
+       x = "Términos",
+       title = "Percepción de la probabilidad")
+```
+
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-775-1.png" width="100%" /&gt;
+
+]
 
 ---
     </textarea>
